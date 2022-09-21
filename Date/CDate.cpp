@@ -20,7 +20,7 @@ private:
     year = tempDate.substr(0, 4);
   }
 
-  short validateDay(int day, int month, bool bisiesto)
+  bool validateDay(int day, int month, bool bisiesto)
   {
 
     if (day <= 0)

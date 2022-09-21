@@ -13,6 +13,7 @@ int main()
 
   do
   {
+    system("cls");
     std::cout << "\n\t\t\tIngrese la fecha (dd/MM/yyyy): ";
     std::cin >> sDate;
     date.setDate(sDate);
