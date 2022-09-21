@@ -13,14 +13,14 @@ int main()
 
   do
   {
-    std::cout << "Ingrese la fecha (dd/MM/yyyy): ";
+    std::cout << "\n\t\t\tIngrese la fecha (dd/MM/yyyy): ";
     std::cin >> sDate;
     date.setDate(sDate);
     std::cout << "\n\t\t\t" << Controll(date);
-    std::cout << "\n\t\t\tContinuar: ";
+    std::cout << "\n\t\t\tPresione E para salir: ";
     std::cin >> escape;
 
-  } while (escape != 'z');
+  } while (escape != 'E' || escape == 'e');
 
   system("pause");
   return 0;
