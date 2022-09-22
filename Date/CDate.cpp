@@ -48,7 +48,7 @@ private:
 
   short validateMonth(int month) { return (month >= 1 && month <= 12); }
 
-  short validateYear(int year) { return ((year % 4 == 0) && (year % 1000 == 0)); }
+  short validateYear(int year) { return ((year % 4 == 0) && (year % 100 != 0)); }
 
 public:
   CDate(std::string pDate) { date = pDate; }
