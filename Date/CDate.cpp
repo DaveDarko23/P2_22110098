@@ -4,29 +4,29 @@
 class CDate
 {
 private:
-  std::string date;
-  bool bisiesto;
+  std::string mDate;
+  bool mBisiesto;
 
   void separate()
   {
-    std::string tempDate = date;
+    std::string mTempDate = mDate;
 
-    day = stoi(tempDate.substr(0, 2));
-    tempDate.erase(0, 3);
+    mDay = stoi(mTempDate.substr(0, 2));
+    mTempDate.erase(0, 3);
 
-    month = stoi(tempDate.substr(0, 2));
-    tempDate.erase(0, 3);
+    mMonth = stoi(mTempDate.substr(0, 2));
+    mTempDate.erase(0, 3);
 
-    year = stoi(tempDate.substr(0, 4));
+    mYear = stoi(mTempDate.substr(0, 4));
   }
 
   bool validateDay()
   {
 
-    if (day <= 0)
+    if (mYear <= 0)
       return false;
 
-    switch (month)
+    switch (mMonth)
     {
     case 1:
     case 3:
@@ -35,27 +35,27 @@ private:
     case 8:
     case 10:
     case 12:
-      return (day <= 31);
+      return (mDay <= 31);
     case 4:
     case 6:
     case 9:
     case 11:
-      return (day <= 30);
+      return (mDay <= 30);
     case 2:
-      return ((day <= 28 && !bisiesto) || (day <= 29 && bisiesto));
+      return ((mDay <= 28 && !mBisiesto) || (mDay <= 29 && mBisiesto));
     }
 
     return true;
   }
 
-  short validateMonth() { return (month >= 1 && month <= 12); }
+  short validateMonth() { return (mMonth >= 1 && mMonth <= 12); }
 
-  short validateYear() { return ((year % 4 == 0) && (year % 100 != 0)); }
+  short validateYear() { return ((mYear % 4 == 0) && (mYear % 100 != 0)); }
 
 public:
-  int day, month, year;
+  int mDay, mMonth, mYear;
 
-  CDate(std::string pDate) { date = pDate; }
+  CDate(std::string pDate) { mDate = pDate; }
 
   CDate &operator++();
 
@@ -66,15 +66,15 @@ public:
 
     separate();
 
-    date = pDate;
+    mDate = pDate;
     return true;
   }
 
-  std::string getDate() { return date; }
+  std::string getDate() { return mDate; }
 
   bool validate()
   {
-    bisiesto = validateYear();
+    mBisiesto = validateYear();
 
     if (!validateMonth())
       return false; // Mes InCorrecto
@@ -86,24 +86,24 @@ public:
   }
 };
 
-std::ostream &operator<<(std::ostream &o, const CDate &p)
+std::ostream &operator<<(std::ostream &o, const CDate &pDate)
 {
-  o << "(" << p.day << "/" << p.month << "/" << p.year << ")";
+  o << "(" << pDate.mDay << "/" << pDate.mMonth << "/" << pDate.mYear << ")";
   return o;
 }
 
 CDate &CDate::operator++()
 {
-  this->day++;
+  this->mDay++;
 
   if (!this->validate())
   {
-    this->day = 1;
-    this->month++;
+    this->mDay = 1;
+    this->mMonth++;
     if (!this->validate())
     {
-      this->month = 1;
-      this->year++;
+      this->mMonth = 1;
+      this->mYear++;
     }
   }
 
