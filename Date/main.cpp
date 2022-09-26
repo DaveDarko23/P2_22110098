@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include "CDate.cpp"
 
-std::string Controll(CDate);
-
 int main()
 {
   std::string sDate;
@@ -16,8 +14,25 @@ int main()
     system("cls");
     std::cout << "\n\t\t\tIngrese la fecha (dd/MM/yyyy): ";
     std::cin >> sDate;
-    date.setDate(sDate);
-    std::cout << "\n\t\t\t" << Controll(date);
+    if (date.setDate(sDate))
+    {
+      date.setDate(sDate);
+      if (date.validate())
+      {
+        std::cout << "\n\t\t\tFecha Correcta" << std::endl;
+        std::cout << "\n\t\t\t" << date;
+        for (int i = 0; i < 1000; i++)
+        {
+          ++date;
+          std::cout << "\n\t\t\t" << date;
+        }
+      }
+      else
+        std::cout << "Fecha Incorrecta" << std::endl;
+    }
+    else
+      std::cout << "Fecha Incorrecta" << std::endl;
+
     std::cout << "\n\t\t\tPresione E para salir: ";
     std::cin >> escape;
 
@@ -25,27 +40,4 @@ int main()
 
   system("pause");
   return 0;
-}
-
-std::string Controll(CDate date)
-{
-  std::string message;
-
-  switch (date.validate())
-  {
-  case 0:
-    message = "Fecha Incorrecta";
-    break;
-  case 1:
-    message = "Mes Incorrecto";
-    break;
-  case 2:
-    message = "Dia Incorrecto";
-    break;
-  case 3:
-    message = "Fecha Correcta";
-    break;
-  }
-
-  return message;
 }

@@ -5,22 +5,22 @@ class CDate
 {
 private:
   std::string date;
-  std::string year, month, day;
+  bool bisiesto;
 
   void separate()
   {
     std::string tempDate = date;
 
-    day = tempDate.substr(0, 2);
+    day = stoi(tempDate.substr(0, 2));
     tempDate.erase(0, 3);
 
-    month = tempDate.substr(0, 2);
+    month = stoi(tempDate.substr(0, 2));
     tempDate.erase(0, 3);
 
-    year = tempDate.substr(0, 4);
+    year = stoi(tempDate.substr(0, 4));
   }
 
-  bool validateDay(int day, int month, bool bisiesto)
+  bool validateDay()
   {
 
     if (day <= 0)
@@ -44,36 +44,68 @@ private:
     case 2:
       return ((day <= 28 && !bisiesto) || (day <= 29 && bisiesto));
     }
+
+    return true;
   }
 
-  short validateMonth(int month) { return (month >= 1 && month <= 12); }
+  short validateMonth() { return (month >= 1 && month <= 12); }
 
-  short validateYear(int year) { return ((year % 4 == 0) && (year % 100 != 0)); }
+  short validateYear() { return ((year % 4 == 0) && (year % 100 != 0)); }
 
 public:
+  int day, month, year;
+
   CDate(std::string pDate) { date = pDate; }
 
-  void setDate(std::string pDate) { date = pDate; }
+  CDate &operator++();
 
-  std::string getDate() { return date; }
-
-  short validate()
+  bool setDate(std::string pDate)
   {
-    bool bisiesto;
-
-    if (date.length() != 10)
-      return 0; // Fecha Incorrecta
+    if (pDate.length() != 10)
+      return false;
 
     separate();
 
-    bisiesto = validateYear((int)stoi(year));
+    date = pDate;
+    return true;
+  }
 
-    if (!validateMonth((int)stoi(month)))
-      return 1; // Mes InCorrecto
+  std::string getDate() { return date; }
 
-    if (!validateDay((int)stoi(day), stoi(month), bisiesto))
-      return 2; // Día InCorrecto
+  bool validate()
+  {
+    bisiesto = validateYear();
 
-    return 3; // Fecha Correcta
+    if (!validateMonth())
+      return false; // Mes InCorrecto
+
+    if (!validateDay())
+      return false; // Día InCorrecto
+
+    return true; // Fecha Correcta
   }
 };
+
+std::ostream &operator<<(std::ostream &o, const CDate &p)
+{
+  o << "(" << p.day << "/" << p.month << "/" << p.year << ")";
+  return o;
+}
+
+CDate &CDate::operator++()
+{
+  this->day++;
+
+  if (!this->validate())
+  {
+    this->day = 1;
+    this->month++;
+    if (!this->validate())
+    {
+      this->month = 1;
+      this->year++;
+    }
+  }
+
+  return *this;
+}
