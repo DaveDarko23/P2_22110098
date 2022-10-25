@@ -1,0 +1,2 @@
+C:\Users\DaveDarko\Desktop\POO-Actividades\Akinator\x64\Debug\Akinator.exe
+C:\Users\DaveDarko\Desktop\POO-Actividades\Akinator\x64\Debug\Akinator.pdb
