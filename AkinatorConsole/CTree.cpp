@@ -15,7 +15,7 @@ public:
 
   Node *Insertar(int pDato, string pValue, Node *pNodo)
   {
-    if (pNodo == NULL)
+    if (!pNodo)
     {
       Node *Temp = new Node();
       Temp->mID = pDato;
@@ -27,6 +27,7 @@ public:
 
     if (pNodo->mID > pDato)
       pNodo->left = Insertar(pDato, pValue, pNodo->left);
+
     if (pNodo->mID < pDato)
       pNodo->right = Insertar(pDato, pValue, pNodo->right);
 
